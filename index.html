@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://visjs.org/examples/network/basicUsage.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Современное искусство</title>
+
+  <script type="text/javascript" src="./lib/vis.js"></script><style></style>
+  <link href="./lib/vis-network.min.css" rel="stylesheet" type="text/css">
+
+  <style type="text/css">
+    #mynetwork {
+      width: 1600px;
+      height: 1400px;
+      border: 1px solid lightgray;
+    }
+  </style>
+</head>
+<body>
+
+<p>
+	Современное искусство
+</p>
+
+<div id="mynetwork"><div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="1600" height="520" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"></canvas></div></div>
+
+<script type="text/javascript">
+var DIR = 'images/';
+
+var EDGE_LENGTH_MAIN = 200;
+var EDGE_LENGTH_MID = 150;
+var EDGE_LENGTH_SUB = 100;
+
+// create an array with nodes
+var nodes = new vis.DataSet([
+		{id: 1, label: 'Преимпрессионизм (1820-1870)'},
+
+		{id: 2, label: 'Теодор Жерико (1791-1824)'},
+		{id: 3, label: 'Плот "Медузы" (1818-1819)', image: DIR + 'jerico-plot-meduzy.jpg', shape: 'image'},
+		
+		{id: 4, label: 'Эжен Делакруа (1798-1863)'},
+		{id: 5, label: 'Свобода ведушая народ (1830)', image: DIR + 'delakrua-svoboda.jpg', shape: 'image'},
+
+		{id: 6, label: 'Джон Констебл (1776-1837)'},
+		{id: 7, label: 'Воз сена (1821)', image: DIR + 'konstebl-voz-sena.jpg', shape: 'image'},
+
+		{id: 8, label: 'Гюстав Курбе (1819-1877)'},
+		{id: 9, label: 'Происхождение мира (1866)'},
+		{id: 10, label: 'Похороны в Орнане (1850)', image: DIR + 'courbet-burial-at-ornans-1849.jpg', shape: 'image'},
+		{id: 11, label: 'Мастерская художника (1855)', image: DIR + 'courbet-the-painter-s-studio-a-real-allegory-1855-361x598-m-artfond.jpg', shape: 'image'},
+		
+		{id: 12, label: 'Джеймс Макнил Уистлер (1834-1903)'},
+		{id: 13, label: 'Симфония в белом №1: девушка в белом (1862)', image: DIR + 'whistler-simfoniya-v-belom-n1-devushka-v-belom.jpg', shape: 'image'},
+
+		{id: 14, label: 'Эдуард Мане (1832-1883)'},
+		{id: 15, label: 'Любитель абсента (1858-1859)', image: DIR + 'mane-lubitel-absenta.jpg', shape: 'image'},
+		{id: 16, label: 'Завтрак на траве (1863)', image: DIR + 'mane-zavtrak-na-trave.jpg', shape: 'image'},
+		{id: 17, label: 'Олимпия (1863)', image: DIR + 'mane-olimpiya.jpg', shape: 'image'},
+]);
+
+// create an array with edges
+var edges = new vis.DataSet([
+		{from: 1, to: 2, length: EDGE_LENGTH_MID},
+		{from: 2, to: 3, length: EDGE_LENGTH_SUB},
+		{from: 1, to: 4, length: EDGE_LENGTH_MID},
+		{from: 4, to: 5, length: EDGE_LENGTH_SUB},
+		{from: 1, to: 6, length: EDGE_LENGTH_MID},
+		{from: 6, to: 7, length: EDGE_LENGTH_SUB},
+		{from: 1, to: 8, length: EDGE_LENGTH_MID},
+		{from: 8, to: 9, length: EDGE_LENGTH_SUB},
+		{from: 8, to: 10, length: EDGE_LENGTH_SUB},
+		{from: 8, to: 11, length: EDGE_LENGTH_SUB},
+		{from: 1, to: 12, length: EDGE_LENGTH_MID},
+		{from: 12, to: 13, length: EDGE_LENGTH_SUB},
+		{from: 1, to: 14, length: EDGE_LENGTH_MID},
+		{from: 14, to: 15, length: EDGE_LENGTH_SUB},
+		{from: 14, to: 16, length: EDGE_LENGTH_SUB},
+		{from: 14, to: 17, length: EDGE_LENGTH_SUB},
+]);
+
+// create a network
+var container = document.getElementById('mynetwork');
+var data = {
+	nodes: nodes,
+	edges: edges
+};
+var options = {};
+var network = new vis.Network(container, data, options);
+</script>
+
+</body></html>
