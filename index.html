@@ -25,7 +25,7 @@
 <script type="text/javascript">
 var DIR = 'images/';
 
-var EDGE_LENGTH_MAIN = 200;
+var EDGE_LENGTH_MAIN = 300;
 var EDGE_LENGTH_MID = 150;
 var EDGE_LENGTH_SUB = 100;
 
@@ -54,6 +54,23 @@ var nodes = new vis.DataSet([
 		{id: 15, label: 'Любитель абсента (1858-1859)', image: DIR + 'mane-lubitel-absenta.jpg', shape: 'image'},
 		{id: 16, label: 'Завтрак на траве (1863)', image: DIR + 'mane-zavtrak-na-trave.jpg', shape: 'image'},
 		{id: 17, label: 'Олимпия (1863)', image: DIR + 'mane-olimpiya.jpg', shape: 'image'},
+
+		{id: 18, label: "Импрессионизм (1870-1890)", color: "lime"},
+
+		{id: 19, label: "Клод Моне (1840-1926)", color: "lime"},
+		{id: 20, label: 'Впечатление.Восход солнца (1872)', image: DIR + 'Claude-Monet-Impression-Sunrise.jpg', shape: 'image'},
+		{id: 25, label: 'Лягушатник (1869)', image: DIR + 'Claude-Monet-Lyagushatnik.jpg', shape: 'image'},
+		{id: 26, label: 'Темза ниже Вестминстера (1871)', image: DIR + 'Claude-Monet-The-Thames-below-Westminster.jpg', shape: 'image'},
+
+		{id: 21, label: "Поль Сезанн (1839-1906)", color: "lime"},
+		{id: 22, label: 'Современная Олимпия (1873-1874)', image: DIR + 'sezann-sovremennaya-olimpiya.jpg', shape: 'image'},
+
+		{id: 23, label: "Камиль Писсарро (1830-1903)", color: "lime"},
+		{id: 24, label: 'Иней на старой Эннерийской дороге (1873)', image: DIR + 'Pissarro-iney.jpg', shape: 'image'},
+
+		{id: 27, label: 'Японская ксилография укиё-э', color: 'grey'},
+		{id: 28, label: "Кацусика Хокусай (1760-1849)", color: "grey"},
+		{id: 29, label: "Большая волна в Канагава (ок. 1830-1832)", image: DIR + 'katsushika-hokusai-waves.jpg', shape: 'image'},
 ]);
 
 // create an array with edges
@@ -74,6 +91,20 @@ var edges = new vis.DataSet([
 		{from: 14, to: 15, length: EDGE_LENGTH_SUB},
 		{from: 14, to: 16, length: EDGE_LENGTH_SUB},
 		{from: 14, to: 17, length: EDGE_LENGTH_SUB},
+
+		{from: 1, to: 18, length: EDGE_LENGTH_MAIN, arrows: 'to', dashes: true},
+		{from: 18, to: 19, length: EDGE_LENGTH_MID},
+		{from: 19, to: 20, length: EDGE_LENGTH_SUB},
+		{from: 19, to: 25, length: EDGE_LENGTH_SUB},
+		{from: 19, to: 26, length: EDGE_LENGTH_SUB},
+		{from: 18, to: 21, length: EDGE_LENGTH_MID},
+		{from: 21, to: 22, length: EDGE_LENGTH_SUB},
+		{from: 18, to: 23, length: EDGE_LENGTH_MID},
+		{from: 23, to: 24, length: EDGE_LENGTH_SUB},
+
+		{from: 27, to: 28, length: EDGE_LENGTH_MID},
+		{from: 27, to: 18, length: EDGE_LENGTH_MAIN, arrows: 'to', dashes: true},
+		{from: 28, to: 29, length: EDGE_LENGTH_SUB},
 ]);
 
 // create a network
