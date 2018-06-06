@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)http://visjs.org/examples/network/basicUsage.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Современное искусство</title>
 
   <script type="text/javascript" src="./lib/vis.js"></script><style></style>
@@ -8,8 +9,8 @@
 
   <style type="text/css">
     #mynetwork {
-      width: 1600px;
-      height: 1400px;
+      width: 1200px;
+      height: 600px;
       border: 1px solid lightgray;
     }
   </style>
@@ -20,92 +21,266 @@
 	Современное искусство
 </p>
 
-<div id="mynetwork"><div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="1600" height="520" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"></canvas></div></div>
+<div id="mynetwork"></div>
 
 <script type="text/javascript">
+var PAINTERS = [
+	{
+		genre: 'preimp',
+		name: 'Теодор Жерико',
+		years: '1820-1870',
+		paintings: [
+			{
+				title: 'Плот "Медузы"',
+				year: '1818-1819',
+				image:  'jerico-plot-meduzy.jpg',
+			},
+		]
+	},
+	{
+		name: 'Эжен Делакруа',
+		years: '1798-1863',
+		paintings: [
+			{
+				title: 'Свобода ведушая народ',
+				year: '1830',
+				image:  'delakrua-svoboda.jpg',
+			},
+		]
+	},
+	{
+		name: 'Джон Констебл',
+		years: '1776-1837',
+		paintings: [
+			{
+				title: 'Воз сена',
+				year: '1821',
+				image:  'konstebl-voz-sena.jpg',
+			},
+		]
+	},
+	{
+		name: 'Гюстав Курбе',
+		years: '1819-1877',
+		paintings: [
+			{
+				title: 'Происхождение мира',
+				year: '1866',
+			},
+			{
+				title: 'Похороны в Орнане',
+				year: '1850',
+				image: 'courbet-burial-at-ornans-1849.jpg',
+			},
+			{
+				title: 'Мастерская художника',
+				year: '1855',
+				image: 'courbet-the-painter-s-studio-a-real-allegory-1855-361x598-m-artfond.jpg',
+			},
+		]
+	},
+	{
+		name: 'Джеймс Макнил Уистлер',
+		years: '1834-1903',
+		paintings: [
+			{
+				title: 'Симфония в белом №1: девушка в белом',
+				year: '1862',
+				image: 'whistler-simfoniya-v-belom-n1-devushka-v-belom.jpg',
+			},
+		]
+	},
+	{
+		name: 'Джозеф Мэллорд Уильям Тернер',
+		years: '1775-1851',
+		paintings: [
+			{
+				title: 'Дождь, пар и скорость',
+				year: '1844',
+				image: 'terner-rain-steam-and-speed.jpg',
+			},
+		]
+	},
+
+	{
+		name: 'Эдуард Мане',
+		years: '1832-1883',
+		paintings: [
+			{
+				title: 'Любитель абсента',
+				year: '1858-1859',
+				image: 'mane-lubitel-absenta.jpg',
+			},
+			{
+				title: 'Завтрак на траве',
+				year: '1863',
+				image: 'mane-zavtrak-na-trave.jpg',
+			},
+			{
+				title: 'Олимпия',
+				year: '1863',
+				image: 'mane-olimpiya.jpg',
+			},
+		]
+	},
+	{
+		genre: 'imp',
+		name: 'Клод Моне',
+		years: '1840-1926',
+		paintings: [
+			{
+				title: 'Впечатление.Восход солнца',
+				year: '1872',
+				image: 'Claude-Monet-Impression-Sunrise.jpg',
+			},
+			{
+				title: 'Лягушатник',
+				year: '1869',
+				image: 'Claude-Monet-Lyagushatnik.jpg',
+			},
+			{
+				title: 'Темза ниже Вестминстера',
+				year: '1871',
+				image: 'Claude-Monet-The-Thames-below-Westminster.jpg',
+			},
+		]
+	},
+	{
+		name: 'Поль Сезанн',
+		years: '1839-1906',
+		paintings: [
+			{
+				title: 'Современная Олимпия',
+				year: '1873-1874',
+				image: 'sezann-sovremennaya-olimpiya.jpg',
+			},
+		]
+	},
+	{
+		name: 'Камиль Писсарро',
+		years: '1830-1903',
+		paintings: [
+			{
+				title: 'Иней на старой Эннерийской дороге',
+				year: '1873',
+				image: 'Pissarro-iney.jpg',
+			},
+		]
+	},
+	{
+		name: 'Эдгар Дега',
+		years: '1834-1917',
+		paintings: [
+			{
+				title: 'Танцевальный класс',
+				year: '1874',
+				image: 'dega-the-dancing-class-1874.jpg',
+			},
+			{
+				title: 'Коляска на скачках',
+				year: 'ок. 1869-1872',
+				image: 'dega-kolyaska-na-skachkah.jpg',
+			},
+		]
+	},
+	{
+		genre: 'ukiyo-e',
+		name: 'Кацусика Хокусай',
+		years: '1760-1849',
+		paintings: [
+			{
+				title: 'Большая волна в Канагава',
+				year: 'ок. 1830-1832',
+				image: 'katsushika-hokusai-waves.jpg',
+			},
+		]
+	},
+	{
+		name: 'Утагава Хиросигэ',
+		years: '1797-1858',
+		paintings: [
+			{
+				title: 'Большая волна в Канагава',
+				year: 'ок. 1830-1832',
+				image: 'hirosige-stanciya-ocu.jpg',
+			},
+		]
+	},
+];
+
+var GENRES = [
+	{
+		id: 'preimp',
+		title: 'Преимпрессионизм',
+		years: '1820-1870',
+		to: 'imp',
+	},
+	{
+		id: 'imp',
+		title: 'Импрессионизм',
+		years: '1870-1890',
+	},
+	{
+		id: 'ukiyo-e',
+		title: 'Японская ксилография укиё-э',
+		to: 'imp',
+	},
+];
+
 var DIR = 'images/';
 
-var EDGE_LENGTH_MAIN = 300;
+var EDGE_LENGTH_MAIN = 500;
 var EDGE_LENGTH_MID = 150;
 var EDGE_LENGTH_SUB = 100;
 
-// create an array with nodes
-var nodes = new vis.DataSet([
-		{id: 1, label: 'Преимпрессионизм (1820-1870)'},
+var nodes = [];
+var edges = [];
+// draw genres
+GENRES.forEach(function(item, i, arr) {
+	var title = item['title'];
+	if (item['years']) {
+		title += " (" + item['years'] + ")";
+	}
+	nodes.push({id: i, label: title});
+	if (item['to']) {
+		arr.forEach(function(elem, j, arr2) {
+			if (elem['id'] == item['to']) {
+				edges.push({from: i, to: j, length: EDGE_LENGTH_MAIN, arrows: 'to', dashes: true});
+			}
+		});
+	}
+});
 
-		{id: 2, label: 'Теодор Жерико (1791-1824)'},
-		{id: 3, label: 'Плот "Медузы" (1818-1819)', image: DIR + 'jerico-plot-meduzy.jpg', shape: 'image'},
-		
-		{id: 4, label: 'Эжен Делакруа (1798-1863)'},
-		{id: 5, label: 'Свобода ведушая народ (1830)', image: DIR + 'delakrua-svoboda.jpg', shape: 'image'},
-
-		{id: 6, label: 'Джон Констебл (1776-1837)'},
-		{id: 7, label: 'Воз сена (1821)', image: DIR + 'konstebl-voz-sena.jpg', shape: 'image'},
-
-		{id: 8, label: 'Гюстав Курбе (1819-1877)'},
-		{id: 9, label: 'Происхождение мира (1866)'},
-		{id: 10, label: 'Похороны в Орнане (1850)', image: DIR + 'courbet-burial-at-ornans-1849.jpg', shape: 'image'},
-		{id: 11, label: 'Мастерская художника (1855)', image: DIR + 'courbet-the-painter-s-studio-a-real-allegory-1855-361x598-m-artfond.jpg', shape: 'image'},
-		
-		{id: 12, label: 'Джеймс Макнил Уистлер (1834-1903)'},
-		{id: 13, label: 'Симфония в белом №1: девушка в белом (1862)', image: DIR + 'whistler-simfoniya-v-belom-n1-devushka-v-belom.jpg', shape: 'image'},
-
-		{id: 14, label: 'Эдуард Мане (1832-1883)'},
-		{id: 15, label: 'Любитель абсента (1858-1859)', image: DIR + 'mane-lubitel-absenta.jpg', shape: 'image'},
-		{id: 16, label: 'Завтрак на траве (1863)', image: DIR + 'mane-zavtrak-na-trave.jpg', shape: 'image'},
-		{id: 17, label: 'Олимпия (1863)', image: DIR + 'mane-olimpiya.jpg', shape: 'image'},
-
-		{id: 18, label: "Импрессионизм (1870-1890)", color: "lime"},
-
-		{id: 19, label: "Клод Моне (1840-1926)", color: "lime"},
-		{id: 20, label: 'Впечатление.Восход солнца (1872)', image: DIR + 'Claude-Monet-Impression-Sunrise.jpg', shape: 'image'},
-		{id: 25, label: 'Лягушатник (1869)', image: DIR + 'Claude-Monet-Lyagushatnik.jpg', shape: 'image'},
-		{id: 26, label: 'Темза ниже Вестминстера (1871)', image: DIR + 'Claude-Monet-The-Thames-below-Westminster.jpg', shape: 'image'},
-
-		{id: 21, label: "Поль Сезанн (1839-1906)", color: "lime"},
-		{id: 22, label: 'Современная Олимпия (1873-1874)', image: DIR + 'sezann-sovremennaya-olimpiya.jpg', shape: 'image'},
-
-		{id: 23, label: "Камиль Писсарро (1830-1903)", color: "lime"},
-		{id: 24, label: 'Иней на старой Эннерийской дороге (1873)', image: DIR + 'Pissarro-iney.jpg', shape: 'image'},
-
-		{id: 27, label: 'Японская ксилография укиё-э', color: 'grey'},
-		{id: 28, label: "Кацусика Хокусай (1760-1849)", color: "grey"},
-		{id: 29, label: "Большая волна в Канагава (ок. 1830-1832)", image: DIR + 'katsushika-hokusai-waves.jpg', shape: 'image'},
-]);
-
-// create an array with edges
-var edges = new vis.DataSet([
-		{from: 1, to: 2, length: EDGE_LENGTH_MID},
-		{from: 2, to: 3, length: EDGE_LENGTH_SUB},
-		{from: 1, to: 4, length: EDGE_LENGTH_MID},
-		{from: 4, to: 5, length: EDGE_LENGTH_SUB},
-		{from: 1, to: 6, length: EDGE_LENGTH_MID},
-		{from: 6, to: 7, length: EDGE_LENGTH_SUB},
-		{from: 1, to: 8, length: EDGE_LENGTH_MID},
-		{from: 8, to: 9, length: EDGE_LENGTH_SUB},
-		{from: 8, to: 10, length: EDGE_LENGTH_SUB},
-		{from: 8, to: 11, length: EDGE_LENGTH_SUB},
-		{from: 1, to: 12, length: EDGE_LENGTH_MID},
-		{from: 12, to: 13, length: EDGE_LENGTH_SUB},
-		{from: 1, to: 14, length: EDGE_LENGTH_MID},
-		{from: 14, to: 15, length: EDGE_LENGTH_SUB},
-		{from: 14, to: 16, length: EDGE_LENGTH_SUB},
-		{from: 14, to: 17, length: EDGE_LENGTH_SUB},
-
-		{from: 1, to: 18, length: EDGE_LENGTH_MAIN, arrows: 'to', dashes: true},
-		{from: 18, to: 19, length: EDGE_LENGTH_MID},
-		{from: 19, to: 20, length: EDGE_LENGTH_SUB},
-		{from: 19, to: 25, length: EDGE_LENGTH_SUB},
-		{from: 19, to: 26, length: EDGE_LENGTH_SUB},
-		{from: 18, to: 21, length: EDGE_LENGTH_MID},
-		{from: 21, to: 22, length: EDGE_LENGTH_SUB},
-		{from: 18, to: 23, length: EDGE_LENGTH_MID},
-		{from: 23, to: 24, length: EDGE_LENGTH_SUB},
-
-		{from: 27, to: 28, length: EDGE_LENGTH_MID},
-		{from: 27, to: 18, length: EDGE_LENGTH_MAIN, arrows: 'to', dashes: true},
-		{from: 28, to: 29, length: EDGE_LENGTH_SUB},
-]);
+// draw painters
+var l = GENRES.length;
+var i;
+var genre;
+for (i=0; i<PAINTERS.length; i++) {
+	var p = PAINTERS[i];
+	if (p['genre']) {
+		genre = p['genre'];
+	}
+	nodes.push({id: l, label: p['name'] + " (" + p['years'] + ")"});
+	GENRES.forEach(function(item, i, arr) {
+		if (item['id'] == genre) {
+			edges.push({from: i, to: l, length: EDGE_LENGTH_MID, arrows: 'to'});
+		}
+	});
+	var lp = l;
+	l++;
+	var j;
+	for (j=0; j < p['paintings'].length; j++) {
+		var img = p['paintings'][j];
+		var node = {id: l, label: img['title'] + " (" + img['year'] + ")"}
+		if (img['image']) {
+			node['image'] = DIR + img['image'];
+			node['shape'] = 'image';
+		}
+		nodes.push(node);
+		edges.push({from: lp, to: l, length: EDGE_LENGTH_SUB, arrows: 'to'});
+		l++;
+	}
+}
 
 // create a network
 var container = document.getElementById('mynetwork');
