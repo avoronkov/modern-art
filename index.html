@@ -219,11 +219,13 @@ var GENRES = [
 		id: 'imp',
 		title: 'Импрессионизм',
 		years: '1870-1890',
+		color: 'lime',
 	},
 	{
 		id: 'ukiyo-e',
 		title: 'Японская ксилография укиё-э',
 		to: 'imp',
+		color: 'grey',
 	},
 ];
 
@@ -241,7 +243,11 @@ GENRES.forEach(function(item, i, arr) {
 	if (item['years']) {
 		title += " (" + item['years'] + ")";
 	}
-	nodes.push({id: i, label: title});
+	var node = {id: i, label: title};
+	if (item['color']) {
+		node['color'] = item['color'];
+	}
+	nodes.push(node);
 	if (item['to']) {
 		arr.forEach(function(elem, j, arr2) {
 			if (elem['id'] == item['to']) {
@@ -253,23 +259,24 @@ GENRES.forEach(function(item, i, arr) {
 
 // draw painters
 var l = GENRES.length;
-var i;
-var genre;
-for (i=0; i<PAINTERS.length; i++) {
+var genre_id, genre_color;
+for (var i=0; i<PAINTERS.length; i++) {
 	var p = PAINTERS[i];
 	if (p['genre']) {
+		for(var k=0; k<GENRES.length; k++) {
+			if (GENRES[k]['id'] == p['genre']) {
+				genre_id = k;
+				genre_color = GENRES[k]['color'];
+			}
+		}
 		genre = p['genre'];
 	}
-	nodes.push({id: l, label: p['name'] + " (" + p['years'] + ")"});
-	GENRES.forEach(function(item, i, arr) {
-		if (item['id'] == genre) {
-			edges.push({from: i, to: l, length: EDGE_LENGTH_MID, arrows: 'to'});
-		}
-	});
+	nodes.push({id: l, label: p['name'] + " (" + p['years'] + ")", color: genre_color});
+	edges.push({from: genre_id, to: l, length: EDGE_LENGTH_MID, arrows: 'to'});
+
 	var lp = l;
 	l++;
-	var j;
-	for (j=0; j < p['paintings'].length; j++) {
+	for (var j=0; j < p['paintings'].length; j++) {
 		var img = p['paintings'][j];
 		var node = {id: l, label: img['title'] + " (" + img['year'] + ")"}
 		if (img['image']) {
