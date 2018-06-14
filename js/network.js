@@ -180,6 +180,60 @@ var PAINTERS = [
 			},
 		]
 	},
+	{
+		genre: 'expr',
+		name: "Винсент Ван Гог",
+		years: '1853-1890',
+		paintings: [
+			{
+				title: 'Едоки картофеля',
+				year: '1885',
+				image: 'van-gog-edoki-kartofelya.jpg',
+			},
+			{
+				title: 'Желтый дом',
+				year: '1888',
+				image: 'VanGogh_zheltyi-dom.jpg',
+			},
+			{
+				title: 'Ночная терраса кафе',
+				year: '1888',
+				image: 'van-gog-nochnaya-terassa-kafe.jpg',
+			},
+			{
+				title: 'Звездная ночь',
+				year: '1889',
+				image: 'van-gog-zvezdnaya-noch.jpg',
+			},
+			{
+				title: 'Натюрморт с тарелкой лука',
+				year: '1889',
+				image: 'van-gog-natjurmort-s-tarelkoy-luka.jpg',
+			},
+		],
+	},
+	{
+		name: 'Эдвард Мунк',
+		years: '1863-1944',
+		paintings: [
+			{
+				title: 'Крик',
+				year: '1893',
+				image: 'munk-krik.jpg',
+			},
+		]
+	},
+	{
+		name: 'Фрэнсис Бэкон',
+		years: '1909-1992',
+		paintings: [
+			{
+				title: 'Портрет папы Иннокентия X',
+				year: '1953',
+				image: 'bekon-shtihi-k-portretu.jpg',
+			},
+		]
+	},
 ];
 
 var GENRES = [
@@ -194,12 +248,25 @@ var GENRES = [
 		title: 'Импрессионизм',
 		years: '1870-1890',
 		color: 'lime',
+		to: 'postimp',
 	},
 	{
 		id: 'ukiyo-e',
 		title: 'Японская ксилография укиё-э',
 		to: 'imp',
 		color: 'grey',
+	},
+	{
+		id: 'postimp',
+		title: 'Постимпрессионизм',
+		years: '1880-1906',
+		to: 'expr',
+		color: 'yellow',
+	},
+	{
+		id: 'expr',
+		title: 'Экспрессионизм',
+		color: 'yellow',
 	},
 ];
 
